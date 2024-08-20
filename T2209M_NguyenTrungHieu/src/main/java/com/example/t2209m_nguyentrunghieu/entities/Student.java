@@ -5,39 +5,31 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-import java.util.List;
-import java.util.Set;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "student_t")
 public class Student {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int studentId;
 
-    @Column(name = "student_code")
+    @Column(name = "student_code", nullable = false)
     private String studentCode;
 
-    @Column(name = "full_name")
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
     @Column(name = "address")
     private String address;
 
-    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<StudentScore> scores;
-
-    // Getters and setters
-
-    public Integer getStudentId() {
+    // Getters and Setters
+    public int getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(Integer studentId) {
+    public void setStudentId(int studentId) {
         this.studentId = studentId;
     }
 
@@ -66,4 +58,3 @@ public class Student {
     }
 
 }
-

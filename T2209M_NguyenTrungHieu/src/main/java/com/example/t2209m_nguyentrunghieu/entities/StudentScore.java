@@ -1,13 +1,9 @@
 package com.example.t2209m_nguyentrunghieu.entities;
 
 import jakarta.persistence.*;
-
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-
-import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -15,7 +11,6 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "student_score_t")
 public class StudentScore {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int studentScoreId;
@@ -28,24 +23,27 @@ public class StudentScore {
     @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;
 
-    @Column(name = "score1")
-    private BigDecimal score1;
+    @Column(name = "score1", nullable = false)
+    private double score1;
 
-    @Column(name = "score2")
-    private BigDecimal score2;
+    @Column(name = "score2", nullable = false)
+    private double score2;
 
-    // Calculate grade
-    public BigDecimal calculateGrade() {
-        return (score1.multiply(BigDecimal.valueOf(0.3))).add(score2.multiply(BigDecimal.valueOf(0.7)));
+    // Calculate Grade
+    public String getGrade() {
+        double gradeValue = 0.3 * score1 + 0.7 * score2;
+        if (gradeValue >= 8.0) return "A";
+        if (gradeValue >= 6.0) return "B";
+        if (gradeValue >= 4.0) return "D";
+        return "F";
     }
 
-    // Getters and setters
-
-    public Integer getStudentScoreId() {
+    // Getters and Setters
+    public int getStudentScoreId() {
         return studentScoreId;
     }
 
-    public void setStudentScoreId(Integer studentScoreId) {
+    public void setStudentScoreId(int studentScoreId) {
         this.studentScoreId = studentScoreId;
     }
 
@@ -64,5 +62,20 @@ public class StudentScore {
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
-}
 
+    public double getScore1() {
+        return score1;
+    }
+
+    public void setScore1(double score1) {
+        this.score1 = score1;
+    }
+
+    public double getScore2() {
+        return score2;
+    }
+
+    public void setScore2(double score2) {
+        this.score2 = score2;
+    }
+}
